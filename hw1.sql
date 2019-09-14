@@ -89,13 +89,33 @@ AS
 -- Question 3ii
 CREATE VIEW q3ii(playerid, namefirst, namelast, lslg)
 AS
-  SELECT 1, 1, 1, 1 -- replace this line
+  SELECT P.playerid, P.namefirst, P.namelast, (SUM(B.h + B.h2b + 2*B.h3b + 3*B.hr) / CAST(SUM(B.ab) as float)) AS lslg
+  FROM people AS P NATURAL JOIN batting AS B
+  GROUP BY P.playerid
+  HAVING SUM(B.ab) > 50
+  ORDER BY lslg DESC, P.playerid ASC
+  LIMIT(10)
 ;
 
 -- Question 3iii
 CREATE VIEW q3iii(namefirst, namelast, lslg)
 AS
-  SELECT 1, 1, 1 -- replace this line
+  SELECT namefirst, namelast, lslg
+  FROM (
+    SELECT P1.playerid, P1.namefirst, P1.namelast, (SUM(B1.h + B1.h2b + 2*B1.h3b + 3*B1.hr) / CAST(SUM(B1.ab) as float)) AS lslg
+    FROM people AS P1 NATURAL JOIN batting AS B1
+    GROUP BY P1.playerid
+    HAVING SUM(B1.ab) > 50
+    ) as SubTable
+  WHERE lslg > ANY (
+    SELECT (SUM(B2.h + B2.h2b + 2*B2.h3b + 3*B2.hr) / CAST(SUM(B2.ab) as float))
+    FROM people AS P2 NATURAL JOIN batting AS B2
+    WHERE P2.playerid = 'mayswi01'
+    GROUP BY P2.playerid
+    HAVING SUM(B2.ab) > 50
+    LIMIT(1)
+    )
+  ORDER BY namefirst ASC
 ;
 
 -- Question 4i

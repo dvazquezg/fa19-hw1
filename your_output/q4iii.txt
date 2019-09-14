@@ -1,0 +1,5 @@
+ yearid | mindiff | maxdiff | avgdiff 
+--------+---------+---------+---------
+      1 |       1 |       1 |       1
+(1 row)
+

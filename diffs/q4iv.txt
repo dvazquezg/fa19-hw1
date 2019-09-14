@@ -1,0 +1,11 @@
+1,4c1,5
+<  playerid | namefirst | namelast | salary | yearid 
+< ----------+-----------+----------+--------+--------
+<         1 |         1 |        1 |      1 |      1
+< (1 row)
+---
+>  playerid  | namefirst | namelast  |  salary  | yearid 
+> -----------+-----------+-----------+----------+--------
+>  brownke01 | Kevin     | Brown     | 15714286 |   2000
+>  rodrial01 | Alex      | Rodriguez | 22000000 |   2001
+> (2 rows)
